@@ -115,52 +115,51 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUploaded })
       </div>
       {uploadedUrl && (
         <div className="space-y-4">
+          <div className="space-y-4">
+            {onImageUploaded ? (
+              <Button size="sm" onClick={insertImage} type="button" className="w-full">
+                <ImageIcon className="mr-2 h-4 w-4" />
+                Insert into Content
+              </Button>
+            ) : (
+              <Button size="icon" variant="ghost" onClick={copyToClipboard} type="button">
+                {wasCopied ? (
+                  <Check className="h-4 w-4 text-green-500" />
+                ) : (
+                  <Copy className="h-4 w-4" />
+                )}
+              </Button>
+            )}
+            <div className="p-2 bg-muted rounded-md">
+              <p className="text-sm font-mono mb-2">
+                ![Image description]({uploadedUrl})
+              </p>
+              <p className="text-sm text-muted-foreground truncate">
+                <a
+                  href={uploadedUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  {uploadedUrl}
+                </a>
+              </p>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <ImageIcon className="h-4 w-4" />
+              <p>
+                {onImageUploaded
+                  ? "The image has been uploaded. Click 'Insert into Content' above to add it to your post."
+                  : "Click the copy button to copy the Markdown image link. Then paste it into your content and update the description."}
+              </p>
+            </div>
+          </div>
           <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
               className="object-contain w-full h-full"
             />
-          </div>
-          <div className="p-2 bg-muted rounded-md flex items-center justify-between gap-2">
-            <p className="text-sm text-muted-foreground truncate">
-              <a
-                href={uploadedUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                {uploadedUrl}
-              </a>
-            </p>
-            <div className="flex gap-2">
-              {onImageUploaded ? (
-                <Button size="sm" onClick={insertImage} type="button">
-                  Insert into Content
-                </Button>
-              ) : (
-                <Button size="icon" variant="ghost" onClick={copyToClipboard} type="button">
-                  {wasCopied ? (
-                    <Check className="h-4 w-4 text-green-500" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <ImageIcon className="h-4 w-4" />
-            <p>
-              {onImageUploaded
-                ? "Click 'Insert into Content' to add the image to your post."
-                : "Click the copy button to copy the Markdown image link. Then paste it into your content and update the description."}
-            </p>
-          </div>
-          <div className="p-2 bg-muted rounded-md">
-            <p className="text-sm font-mono">
-              ![Image description]({uploadedUrl})
-            </p>
           </div>
         </div>
       )}

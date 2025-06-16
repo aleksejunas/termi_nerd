@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -7,6 +6,35 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Skeleton } from '@/components/ui/skeleton';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+// Function to strip markdown and get plain text
+const stripMarkdown = (markdown: string): string => {
+  return markdown
+    // Remove images
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    // Remove links but keep the text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove headers
+    .replace(/#{1,6}\s/g, '')
+    // Remove bold and italic
+    .replace(/(\*\*|__)(.*?)\1/g, '$2')
+    .replace(/(\*|_)(.*?)\1/g, '$2')
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove inline code
+    .replace(/`([^`]+)`/g, '$1')
+    // Remove blockquotes
+    .replace(/^\s*>\s*/gm, '')
+    // Remove horizontal rules
+    .replace(/^[-*_]{3,}$/gm, '')
+    // Remove HTML tags
+    .replace(/<[^>]+>/g, '')
+    // Remove extra whitespace
+    .replace(/\n\s*\n/g, '\n')
+    .trim();
+};
 
 const fetchPosts = async () => {
   const { data, error } = await supabase
@@ -92,9 +120,23 @@ const BlogIndexPage: React.FC = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-muted-foreground line-clamp-3">
-                      {post.content ? `${post.content.substring(0, 200)}...` : 'No preview available.'}
-                    </p>
+                    <div className="text-muted-foreground line-clamp-3 prose dark:prose-invert max-w-none">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-xl font-bold" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-lg font-bold" {...props} />,
+                          h3: ({node, ...props}) => <h3 className="text-base font-bold" {...props} />,
+                          p: ({node, ...props}) => <p className="mb-2" {...props} />,
+                          a: ({node, ...props}) => <span {...props} />,
+                          img: () => null, // Don't show images in preview
+                          code: ({node, ...props}) => <span {...props} />,
+                          pre: ({node, ...props}) => <span {...props} />,
+                        }}
+                      >
+                        {post.content || 'No preview available.'}
+                      </ReactMarkdown>
+                    </div>
                   </CardContent>
                   <div className="p-6 pt-0">
                     <div className="flex flex-wrap gap-2">
