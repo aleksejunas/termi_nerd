@@ -7,6 +7,23 @@ import { blogPosts } from "@/data/blogPosts";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+// Custom image component for ReactMarkdown
+const Image = ({ src, alt }: { src?: string; alt?: string }) => {
+  if (!src) return null;
+  
+  return (
+    <div className="my-4">
+      <img 
+        src={src} 
+        alt={alt || ''} 
+        className="rounded-lg shadow-lg max-w-full h-auto"
+        loading="lazy"
+      />
+      {alt && <p className="text-sm text-terminal-muted-foreground mt-2 text-center">{alt}</p>}
+    </div>
+  );
+};
+
 export function BlogPost() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -72,7 +89,12 @@ export function BlogPost() {
         </header>
 
         <div className="prose prose-invert max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              img: Image
+            }}
+          >
             {post.content}
           </ReactMarkdown>
         </div>

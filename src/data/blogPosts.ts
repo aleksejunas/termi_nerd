@@ -22,6 +22,8 @@ export const blogPosts: BlogPost[] = [
 
 When I decided to create a new portfolio, I wanted something that would stand out from the typical web developer portfolios. As someone who spends most of their time in the terminal, I thought: why not bring that experience to the web?
 
+![Terminal Portfolio Interface](/images/terminal-portfolio.png)
+
 ## The Concept
 
 The idea was simple: create a portfolio that feels like using a real terminal, but with the polish and interactivity that modern web technologies can provide. This meant:
@@ -44,7 +46,7 @@ For this project, I chose a modern stack that would give me the flexibility and 
 ### UI Components
 - **Radix UI** for accessible, unstyled components
 - **Lucide React** for consistent icons
-
+ 
 ## Key Features
 
 ### Command System

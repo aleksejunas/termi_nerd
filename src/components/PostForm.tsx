@@ -111,9 +111,20 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSubmit, isSubmitting
                 <AccordionTrigger>Upload Image for Content</AccordionTrigger>
                 <AccordionContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                        Upload an image here, then copy the generated Markdown link and paste it into your content above.
+                        Upload an image here and click 'Insert into Content' to add it to your post.
                     </p>
-                    <ImageUploader />
+                    <ImageUploader
+                        onImageUploaded={(markdownImage) => {
+                            const contentField = form.getValues('content') || '';
+                            const textarea = document.querySelector('textarea[name="content"]') as HTMLTextAreaElement;
+                            if (textarea) {
+                                const start = textarea.selectionStart;
+                                const end = textarea.selectionEnd;
+                                const newContent = contentField.substring(0, start) + markdownImage + contentField.substring(end);
+                                form.setValue('content', newContent);
+                            }
+                        }}
+                    />
                 </AccordionContent>
             </AccordionItem>
         </Accordion>

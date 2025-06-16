@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -6,8 +6,38 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Edit } from 'lucide-react';
 import SocialShare from '@/components/SocialShare';
+
+const MarkdownImage: React.FC<{ src?: string; alt?: string }> = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  return (
+    <div className="my-6">
+      {isLoading && (
+        <div className="w-full h-48 bg-muted animate-pulse rounded-lg" />
+      )}
+      <img 
+        className={`max-w-full h-auto rounded-lg shadow-lg ${isLoading ? 'hidden' : ''}`}
+        loading="lazy"
+        onLoad={() => setIsLoading(false)}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.onerror = null;
+          target.src = '/placeholder.svg';
+          target.alt = 'Image failed to load';
+          setError(true);
+          setIsLoading(false);
+        }}
+        {...props} 
+      />
+      {props.alt && !error && (
+        <p className="text-sm text-muted-foreground mt-2 text-center">{props.alt}</p>
+      )}
+    </div>
+  );
+};
 
 const fetchPost = async (slug: string) => {
   const { data, error } = await supabase
@@ -30,6 +60,24 @@ const fetchPost = async (slug: string) => {
 
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data, error } = await supabase
+          .rpc('has_role', {
+            _user_id: session.user.id,
+            _role: 'admin'
+          });
+        if (!error && data) {
+          setIsAdmin(true);
+        }
+      }
+    };
+    checkAdmin();
+  }, []);
 
   const { data: post, isLoading, isError, error } = useQuery({
     queryKey: ['post', slug],
@@ -126,12 +174,28 @@ const PostPage: React.FC = () => {
                   </code>
                 );
             },
-            img: ({node, ...props}) => <img className="max-w-full h-auto rounded-lg my-6" {...props} />,
+            img: ({node, ...props}) => {
+              console.log('Rendering image:', props);
+              return <MarkdownImage {...props} />;
+            },
           }}
         >
-            {post.content || ''}
+            {(() => {
+              console.log('Post content:', post.content);
+              return post.content || '';
+            })()}
         </ReactMarkdown>
-        <SocialShare title={post.title} />
+        <div className="flex items-center justify-between mt-8 border-t pt-4">
+          <SocialShare title={post.title} />
+          {isAdmin && (
+            <Button asChild variant="outline" size="sm" className="ml-4">
+              <Link to={`/admin/posts/edit/${post.slug}`}>
+                <Edit className="mr-2 h-4 w-4" />
+                Edit Post
+              </Link>
+            </Button>
+          )}
+        </div>
       </div>
     </article>
   );
