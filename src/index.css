@@ -1,0 +1,86 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Overriding default shadcn colors for our terminal theme */
+    --background: 225 16% 12%; /* maps to terminal-bg #1a1b26 */
+    --foreground: 226 38% 82%; /* maps to terminal-fg #a9b1d6 */
+
+    --card: 225 16% 12%;
+    --card-foreground: 226 38% 82%;
+
+    --popover: 225 16% 12%;
+    --popover-foreground: 226 38% 82%;
+
+    --primary: 145 58% 65%; /* terminal-green */
+    --primary-foreground: 225 16% 12%;
+
+    --secondary: 210 90% 70%; /* terminal-blue */
+    --secondary-foreground: 225 16% 12%;
+
+    --muted: 226 10% 30%;
+    --muted-foreground: 226 20% 60%;
+
+    --accent: 39 70% 65%; /* terminal-yellow */
+    --accent-foreground: 225 16% 12%;
+
+    --destructive: 0 84.2% 60.2%; /* Keep as is or adjust */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 226 10% 30%;
+    --input: 226 10% 30%;
+    --ring: 145 58% 65%; /* terminal-green for focus rings */
+
+    --radius: 0.3rem; /* Slightly sharper edges */
+  }
+
+  /* No dark class needed if we're always dark, but shadcn uses it */
+  .dark {
+    /* Same as :root for a consistent dark theme */
+    --background: 225 16% 12%;
+    --foreground: 226 38% 82%;
+    --card: 225 16% 12%;
+    --card-foreground: 226 38% 82%;
+    --popover: 225 16% 12%;
+    --popover-foreground: 226 38% 82%;
+    --primary: 145 58% 65%;
+    --primary-foreground: 225 16% 12%;
+    --secondary: 210 90% 70%;
+    --secondary-foreground: 225 16% 12%;
+    --muted: 226 10% 30%;
+    --muted-foreground: 226 20% 60%;
+    --accent: 39 70% 65%;
+    --accent-foreground: 225 16% 12%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 226 10% 30%;
+    --input: 226 10% 30%;
+    --ring: 145 58% 65%;
+  }
+}
+
+@layer base {
+  html {
+    @apply font-mono; /* Set default font */
+    background-color: hsl(var(--background)); /* Ensure html bg matches */
+  }
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  #root {
+    @apply min-h-screen flex flex-col;
+    padding: 0 !important; /* Remove App.css padding */
+    margin: 0 !important; /* Remove App.css margin */
+    text-align: left !important; /* Override App.css text-align */
+  }
+  /* For selection styling */
+  ::selection {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+}
