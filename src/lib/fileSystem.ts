@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Children } from "react";
 import { projects } from "@/data/projects";
 import { about } from "@/lib/commands/about";
 import { contact } from "@/lib/commands/contact";
 import type { CommandResult } from "./commands/types";
+import { type } from "os";
 
 export interface VFile {
   type: "file";
@@ -37,6 +38,32 @@ export const fs: VDirectory = {
         },
         {} as { [key: string]: VFile },
       ),
+    },
+    mycode: {
+      type: "directory",
+      children: {
+        "GreetingsPlanet.tsx": {
+          type: "file",
+          content: `import React from 'react';
+export default function GreetingsPlanet() {
+return <div>Greetings, Planet!</div>;
+}
+`,
+        },
+        "Counter.tsx": {
+          type: "file",
+          content: `import React, { useState } from 'react'
+export default function Counter() {
+const [count, setCount] = useState(0);
+return (
+<button onClick={() => setCount(count + 1)}>
+Count: {count}
+</button>
+);
+}
+`,
+        },
+      },
     },
   },
 };
