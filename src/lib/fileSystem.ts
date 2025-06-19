@@ -42,26 +42,47 @@ export const fs: VDirectory = {
     mycode: {
       type: "directory",
       children: {
-        "GreetingsPlanet.tsx": {
-          type: "file",
-          content: `import React from 'react';
-export default function GreetingsPlanet() {
-return <div>Greetings, Planet!</div>;
+        c: {
+          type: "directory",
+          children: {
+            "greetings.planet.c": {
+              type: "file",
+              content: `
+#include <stdio.h>
+
+int main() {
+printf("Greetings, Planet!");
+return 0;
 }
 `,
+            },
+          },
         },
-        "Counter.tsx": {
-          type: "file",
-          content: `import React, { useState } from 'react'
-export default function Counter() {
-const [count, setCount] = useState(0);
-return (
-<button onClick={() => setCount(count + 1)}>
-Count: {count}
-</button>
-);
+        typescript: {
+          type: "directory",
+          children: {
+            "HelloWorld.tsx": {
+              type: "file",
+              content: `import React from 'react';
+export default function HelloWorld() {
+  return <div>Hello, world!</div>;
 }
 `,
+            },
+            "Counter.tsx": {
+              type: "file",
+              content: `import React, { useState } from 'react';
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+`,
+            },
+          },
         },
       },
     },
