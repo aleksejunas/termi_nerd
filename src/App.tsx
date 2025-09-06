@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,7 +21,6 @@ import AdminNewPostPage from "./pages/admin/AdminNewPostPage";
 import AdminEditPostPage from "./pages/admin/AdminEditPostPage";
 import GuestbookPage from "./pages/GuestbookPage";
 import TagPage from "./pages/TagPage";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -44,7 +42,7 @@ const App = () => (
               <Route path="/projects/:slug" element={<ProjectDetailsPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/guestbook" element={<GuestbookPage />} />
-              
+
               <Route path="/admin" element={<AdminRouteGuard />}>
                 <Route index element={<AdminDashboardPage />} />
                 <Route path="posts/new" element={<AdminNewPostPage />} />
