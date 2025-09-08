@@ -16,8 +16,11 @@ export const projects: Project[] = [
   title: 'Phase Out Village',
   slug: 'phase-out-village',
   description: 'A game about outphasing of the oil production in Norway, for the political party MDG',
-  
-  }
+  longDescription: 'A game about outphasing of the oil production in Norway, for the political party MDG',
+  technologies: [],
+  images: [],
+  challenges: 'No challenges',
+  },
   {
     title: 'Project Alpha',
     slug: 'project-alpha',
