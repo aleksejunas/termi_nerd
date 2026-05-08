@@ -1,55 +1,72 @@
-# Welcome to your termi_nerd
+# TermiNerd: A Modern Blog Platform
 
-## Project info
+TermiNerd is a feature-rich, terminal-themed blog platform built with a modern tech stack. It provides a sleek and responsive user interface for readers, along with a comprehensive admin dashboard for content creators.
 
-**URL**: [Github repository]("https://github.com/aleksejunas/termi_nerd")
+## Features
+
+-   **Terminal Interface**: A unique, interactive terminal interface for navigating the blog and executing commands.
+-   **Full-fledged Blog**: Create, edit, and manage blog posts with a Markdown editor.
+-   **Admin Dashboard**: A secure area for administrators to manage posts, users, and view site statistics.
+-   **Image Management**: Seamless image uploads to Supabase Storage, both for post covers and embedded content.
+-   **Authentication**: Secure user authentication and role-based access control.
+-   **Responsive Design**: A clean, modern UI built with Tailwind CSS and shadcn/ui, with dark mode support.
+-   **Search and Filtering**: Easily find posts with built-in search and tag-based filtering.
+
+## Tech Stack
+
+-   **Frontend**: React, TypeScript, Vite
+-   **UI**: shadcn/ui, Tailwind CSS
+-   **Backend & Database**: Supabase
+-   **Routing**: React Router
+-   **State Management**: React Query
+-   **Forms**: React Hook Form with Zod for validation
+
+## Getting Started
 
 ### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+-   Node.js and pnpm
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-`git clone https://github.com/aleksejunas/termi_nerd`
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/aleksejunas/termi_nerd.git
+    ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2.  **Navigate to the project directory:**
+    ```sh
+    cd termi_nerd
+    ```
 
-# Step 3: Install the necessary dependencies.
-`pnpm install`
+3.  **Install dependencies:**
+    ```sh
+    pnpm install
+    ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-`pnpm run dev`
-```
+4.  **Set up environment variables:**
+    Create a `.env.development` file in the root of the project and add your Supabase URL and anon key. You can get these from your Supabase project dashboard.
+    ```
+    VITE_SUPABASE_URL=your-supabase-url
+    VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+    ```
 
-### Edit a file directly in GitHub
+5.  **Run the development server:**
+    ```sh
+    pnpm run dev
+    ```
+    The application will be available at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Deployment
 
-### Use GitHub Codespaces
+You can deploy this project to any static hosting service like Vercel, Netlify, or GitHub Pages.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once
-  you're done.
+1.  **Build the project:**
+    ```sh
+    pnpm run build
+    ```
+2.  Deploy the `dist` folder to your hosting provider.
 
-## What technologies are used for this project?
+## Contributing
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- Supabase
-
-## How can I deploy this project?
-
-Use a service like Vercel
+Contributions are welcome! Feel free to open an issue or submit a pull request.

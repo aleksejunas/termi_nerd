@@ -1,3 +1,7 @@
+packages:
+  - "src"
+  - "assets"
+
 onlyBuiltDependencies:
-  - '@swc/core'
+  - "@swc/core"
   - esbuild

@@ -3,7 +3,7 @@ import { projects } from "@/data/projects";
 import { about } from "@/lib/commands/about";
 import { contact } from "@/lib/commands/contact";
 import type { CommandResult } from "./commands/types";
-import { type } from "os";
+// import { type } from "os";
 
 export interface VFile {
   type: "file";
@@ -24,7 +24,7 @@ export const fs: VDirectory = {
     "contact.txt": { type: "file", content: () => contact([]) },
     "quotes.txt": {
       type: "file",
-      content: `“The only way to do great work is to love what you do.” - Steve Jobs\n“The journey of a thousand miles begins with a single step.” - Lao Tzu\n“That which does not kill us makes us stronger.” - Friedrich Nietzsche\n"Life is what happens when you're busy making other plans." - John Lennon`,
+      content: `“Fuck You Nvidia.” - Linus Torvalds\n“The journey of a thousand miles begins with a single step.” - Lao Tzu\n“That which does not kill us makes us stronger.” - Friedrich Nietzsche\n"Life is what happens when you're busy making other plans." - John Lennon`,
     },
     projects: {
       type: "directory",

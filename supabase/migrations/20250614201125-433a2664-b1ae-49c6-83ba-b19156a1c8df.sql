@@ -1,4 +1,3 @@
-
 -- 1. Create an enum type for user roles, starting with 'admin'
 CREATE TYPE public.app_role AS ENUM ('admin');
 
